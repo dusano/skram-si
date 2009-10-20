@@ -1,0 +1,26 @@
+{% extends 'main_template.html' %}
+
+{% block title %} Skram.si - lastnik produkta {% endblock %}
+
+{% block container %}
+
+  <div class="page-section">
+    <h4>Seznam slovenskih certificiranih lastnikov produkta</h4>
+  </div>
+  
+{% endblock %}
+
+{% block sidebar %}
+  <div class="sidebar-section">
+    <h4>Lastnik produkta</h4>
+    
+    <p>
+      The Product Owner represents the voice of the customer. He/she ensures that the 
+      <a href="{% url skram.team.views.index %}">Scrum Team</a>
+      works with the "right things" from a business perspective. The Product Owner writes
+      customer-centric items (typically user stories), prioritizes them and then places them in 
+      the product backlog.
+    </p>
+
+  </div>
+{% endblock %}

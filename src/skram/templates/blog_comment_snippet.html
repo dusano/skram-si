@@ -1,0 +1,32 @@
+{% if user_is_scrummaster or not blog_comment.is_spam %}
+  <li id="{{ blog_comment.get_absolute_url|slugify }}" class="{%if blog_comment.is_spam %}blog-comment-is-spam{% endif %}">
+    {% ifequal blog_comment.created_by.key lip.key %}
+      <div class="blog-comment-edit">
+        <form action="javascript:deleteBlogComment('{{ blog_comment.get_absolute_url }}', '{{ blog_comment.get_absolute_url|slugify }}')" method="post">
+          <input type="submit" name="delete-blog-comment" value="Zbriši" />
+        </form>
+      </div>
+    {% else %}
+      {% if user_is_scrummaster %}
+        <div id="blog-comment-is-spam-button" class="blog-comment-edit">
+          <form action="javascript:setBlogCommentIsSpam('{% url skram.blog.views.comment_is_spam blog_entry.key.name blog_comment.key.id %}', '{{ blog_comment.get_absolute_url|slugify }}', 'True')" method="post">
+            <input type="submit" name="delete-blog-comment" value="Prijavi kot spam" />
+          </form>
+        </div>
+        <div id="blog-comment-not-a-spam-button" class="blog-comment-edit">
+          <form action="javascript:setBlogCommentIsSpam('{% url skram.blog.views.comment_is_spam blog_entry.key.name blog_comment.key.id %}', '{{ blog_comment.get_absolute_url|slugify }}', 'False')" method="post">
+            <input type="submit" name="delete-blog-comment" value="Ni spam" />
+          </form>
+        </div>
+      {% endif %}
+    {% endifequal %}
+    <div id="blog-comment-text">
+      {{ blog_comment.text }}
+    </div>
+    <div id="blog-comment-author">
+      Avtor: {{ blog_comment.created_by.person_name }},
+      dne {{ blog_comment.created_on|date:"j.n.Y" }}
+      ob {{ blog_comment.created_on|time:"H:i" }}
+    </div>
+  </li>
+{% endif %}

@@ -1,0 +1,29 @@
+{% extends 'main_template.html' %}
+
+{% block title %} Skram.si - mojster skrama {% endblock %}
+
+{% block container %}
+
+  <div class="page-section">
+    <h4>Seznam slovenskih certificiranih mojstrov skrama</h4>
+  </div>
+  
+{% endblock %}
+
+{% block sidebar %}
+  <div class="sidebar-section">
+    <h4>Mojster skrama</h4>
+    
+    <p>
+      <a href="{% url skram.views.index %}">Skram</a> (angl.Scrum) is facilitated by a ScrumMaster, 
+      whose primary job is to remove impediments 
+      to the ability of the team to deliver the sprint goal. The ScrumMaster is not the leader of the 
+      team (as the team is self-organizing) but acts as a buffer between the team and any distracting 
+      influences. The ScrumMaster ensures that the Scrum process is used as intended. The ScrumMaster 
+      is the enforcer of rules. A key part of the ScrumMaster's role is to protect the team and keep 
+      them focused on the tasks in hand. The ScrumMaster is NOT responsible for the transition from 
+      traditional methods of working to Scrum or the implementation of Scrum.
+    </p>
+
+  </div>
+{% endblock %}

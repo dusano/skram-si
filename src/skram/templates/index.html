@@ -1,0 +1,71 @@
+{% extends 'home_template.html' %}
+
+{% block title %} Skram.si {% endblock %}
+
+{% block container %}
+
+  {% if user_is_scrummaster %}
+    <div class="nov-prispevek-btn">
+      <form action="{% url skram.blog.views.create_or_update %}" method="post" id="nov-prispevek-btnfrm">
+        <a href="javascript:$('#nov-prispevek-btnfrm').submit();">Nov prispevek</a>
+      </form>
+    </div>
+  {% endif %}
+
+  {% if not blog_entries.count %}
+    Nobenih prispevkov.
+  {% endif %}
+  
+  {% for blog_entry in blog_entries %}
+    <div class="page-section">
+      <h4>
+        <div class="page-section-title-left">
+          <a href="{% url skram.blog.views.blog_entry blog_entry.key.name %}">{{ blog_entry.title }}</a>
+        </div>
+        {% if user_is_scrummaster %}
+          <div id="skrij-{{ blog_entry.key.name }}" {% if not blog_entry.is_published %}style="display: none"{% endif %} class="page-section-title-right">
+            objavljeno |
+            <a href="javascript:setBlogEntryIsPublished('{{ blog_entry.key.name }}', 'False')">
+              skrij
+            </a>
+          </div>
+          <div id="objavi-{{ blog_entry.key.name }}" {% if blog_entry.is_published %}style="display: none"{% endif %} class="page-section-title-right">
+            neobjavljeno |
+            <a href="javascript:setBlogEntryIsPublished('{{ blog_entry.key.name }}', 'True')">
+              objavi
+            </a>
+          </div>
+        {% endif %}
+      </h4>
+      
+      <p>
+        {{ blog_entry.text|safe }}
+      </p>
+      
+      <p>
+        Avtor: {{ blog_entry.created_by.person_name }},
+        dne {{ blog_entry.created_on|date:"j.n.Y" }}
+        ob {{ blog_entry.created_on|time:"H:i" }}
+      </p>
+    </div>
+  {% endfor %}
+ 
+{% endblock %}
+
+{% block final_javascript %}
+
+    {{ block.super }}
+    
+    function setBlogEntryIsPublished(blogTitle, isPublished) {
+        postURL = "{% url skram.blog.views.is_published_update "_blog_title" %}";
+        postURL = postURL.replace("_blog_title", blogTitle);
+  
+        $.post(postURL, 
+              { is_published: isPublished },
+              function(data){
+                $("#skrij-" + blogTitle).toggleClass(isPublished == 'True');
+                $("#objavi-" + blogTitle).toggleClass(isPublished != 'True');
+            });
+    }
+
+{% endblock %}

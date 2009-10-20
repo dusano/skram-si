@@ -1,0 +1,171 @@
+{% extends 'home_template.html' %}
+
+{% block css_files %}
+  {{ block.super }}
+  <link type="text/css" href="/css/jquery.wysiwyg.css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}
+  {% if blog_entry.title %}
+    Skram.si spletni dnevnik - {{ blog_entry.title }}
+  {% else %}
+    Skram.si spletni dnevnik - nov prispevek
+  {% endif %}
+{% endblock %}
+
+{% block container %}  
+  
+  <div class="page-section">
+    <h4>
+      <div class="page-section-title-left"></div>
+      {% if blog_entry %}
+        <div class="page-section-title-right">
+          <a href="javascript:deleteBlogEntry('{{ blog_entry.key.name }}')">zbriši</a>
+        </div>
+      {% endif %}
+    </h4>
+  
+    <form method="post">
+      <div class="blog-title-field">
+        <div class="blog-title-field-label">
+          {{ blog_entry_form.title.label_tag }}:
+        </div>
+        <div class="blog-title-field-input">
+          {{ blog_entry_form.title }}
+          {{ blog_entry_form.title.errors }}
+        </div>
+      </div>
+      <div class="blog-text-field">
+        <div class="blog-text-field-area">
+          {{ blog_entry_form.text.errors }}
+          {{ blog_entry_form.text }}
+        </div>
+      </div>
+      <div class="blog-attribute-fields">
+        <div class="blog-attribute-field">
+            {{ blog_entry_form.is_published.errors }}
+            {{ blog_entry_form.is_published.label_tag }}
+            {{ blog_entry_form.is_published }}
+        </div>
+        <div class="blog-attribute-field">
+            {{ blog_entry_form.comments_allowed.errors }}
+            {{ blog_entry_form.comments_allowed.label_tag }}
+            {{ blog_entry_form.comments_allowed }}
+        </div>
+      </div>
+      
+      <ul id="blog-commands">
+        <li id="blog-command-submit" class="left">
+          <input type="submit" name="create-blog-entry" value="{% if blog_entry %}Shrani{% else %}Ustvari{% endif %}" />
+        </li>
+        <li id="blog-command-ali" class="left">ali</li>
+        <li id="blog-command-cancel" class="left">
+          <a href="{% if not blog_entry %}{% url skram.views.index %}{% endif %}">Prekliči</a>
+        </li>
+        <li id="blog-command-zemanta" class="right">
+          <a href="javascript:doZemanta();">Obogati z Zemanto</a>
+        </li>
+        <li id="blog-command-remove-zemanta" class="right">
+          <a href="javascript:removeZemanta();">Odstrani Zemanto</a>
+        </li>
+      </ul>    
+
+    </form>
+    
+  </div>
+
+{% endblock %}
+
+{% block javascript_libraries %}
+
+  {{ block.super }}
+  
+  <script type="text/javascript" src="/js/jquery.wysiwyg.js"></script>
+  <script type="text/javascript" src="http://friedcellcollective.net/js/jQuery.windowName/jQuery.windowName.plugin.js"></script>
+  <script type="text/javascript" src="http://www.json.org/json2.js"></script>
+{% endblock %}
+
+{% block final_javascript %}
+
+    {{ block.super }}
+    
+    $(document).ready(function () {
+        $('#id_text').wysiwyg();
+    });
+    
+    
+    function deleteBlogEntry(blogTitle) {
+        urlStr = '{% url skram.blog.views.blog_entry "_blog_title" %}';
+        urlStr = urlStr.replace("_blog_title", blogTitle)
+  
+        $.ajax({
+            type: "DELETE",
+            url: urlStr,
+            success: function(msg){
+                window.location = "{% url skram.views.index %}";
+            }
+        });
+        
+    }
+    
+    function prepareZemantaData(apikey, text) {
+        return {
+            method: 'zemanta.suggest',
+            format: 'wnjson',
+            api_key: apikey,
+            text: text
+            // for more options check http://developer.zemanta.com/docs/suggest/
+        };
+    }
+    
+    function getZemantaAPI(data, callback) {
+        $.ajax({
+            url: 'http://api.zemanta.com/services/rest/0.0/',
+            type: 'POST',
+            data: data,
+            success: function (data, type) {
+                callback(JSON.parse(data));
+            }
+        });
+    }
+    
+    
+    function doZemanta() {
+        key = 'dvck22xwb6qpwca7b7h6buqa';
+        text = $("#id_text").val();
+        
+        text = removeZemantaText(text);
+
+        getZemantaAPI(
+            prepareZemantaData(key, text), 
+            function (data) {
+                if (data.status != "ok")
+                    return;
+
+                related_articles = "<ul id='zemanta-related-articles'>";
+                for (var i = 0; i < data.articles.length; i++) {
+                  related_articles += "<li id='zemanta-related-article'>";
+                  related_articles += "<a href='" + data.articles[i].url + "'>" + data.articles[i].title + "</a>";
+                  related_articles += "</li>";
+                }
+                related_articles += "</ul>";
+                
+                $("#id_text").wysiwyg('setContent', data.markup.text  + related_articles);
+            }
+        );
+    }
+    
+    function removeZemantaText(text) {
+        // Remove Zemanta related articles
+        text = text.replace(/<ul id="zemanta-related-articles">.+<\/ul>/, '');
+        // Remove HTML tags
+        text = text.replace(/<\/?[^>]+>/gi, '');
+        
+        return text;
+    }
+    
+    function removeZemanta() {
+        $("#id_text").wysiwyg('setContent', removeZemantaText($("#id_text").val()));
+    }
+
+{% endblock %}

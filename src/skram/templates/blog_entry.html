@@ -1,0 +1,108 @@
+{% extends 'home_template.html' %}
+
+{% block title %}
+  Skram.si spletni dnevnik - {{ blog_entry.title }}
+{% endblock %}
+
+{% block container %}
+
+  <div class="page-section">
+    <h4>
+        <div class="page-section-title-left">
+          {{ blog_entry.title }}
+        </div>
+        {% if user_is_scrummaster %}
+          <div class="page-section-title-right">
+            <form action="{% url skram.blog.views.blog_entry blog_entry.key.name %}" method="post" id="edit-blog-entry-btnfrm">
+              <a href="javascript:$('#edit-blog-entry-btnfrm').submit();">uredi</a>
+            </form>
+          </div>
+        {% endif %}
+    </h4>
+  
+    <div class="blog-text">
+      {{ blog_entry.text|safe }}
+    </div>
+    
+    <div class="blog-text">
+      Avtor: {{ blog_entry.created_by.person_name }},
+      dne {{ blog_entry.created_on|date:"j.n.Y" }}
+      ob {{ blog_entry.created_on|time:"H:i" }}
+    </div>
+    
+    <h4 id="comments-heading">
+      Komentarji
+    </h4>
+    
+    <ol id="list-of-blog-comments" class="blog-comment">
+      {% for blog_comment in blog_entry.comments %}
+        {% include "blog_comment_snippet.html" %}
+      {% endfor %}
+    </ol>
+    
+    {% if blog_entry.comments_allowed %}
+      {% if user_is_registred %}
+        <div id="blog-comment-form">
+          <form action="javascript:postBlogComment('{{blog_entry.key.name }}/comments')" method="post">
+            <textarea id="id-blog-comment" name="blog-comment"></textarea>
+            <input type="submit" name="add-blog-comment" value="Dodaj komentar" />
+          </form>
+        </div>
+      {% else %}
+        <p>
+          Za komentiranje se morate prijaviti.
+          Kliknite <a href="{% url openidgae.views.OpenIDStartSubmit %}">sem</a> za prijavo.
+        </p>
+      {% endif %}
+    {% else %}
+      <p>
+        Komentiranje tega prispevka ni mogoče.
+      </p>
+    {% endif %}
+
+  </div>
+  
+{% endblock %}
+
+{% block final_javascript %}
+
+    {{ block.super }}
+    
+    function deleteBlogComment(deleteURL, liID) {
+        $.ajax({
+            type: "DELETE",
+            url: deleteURL,
+            success: function(msg){
+                $("#" + liID).remove();
+            }
+        });
+    }
+    
+    function postBlogComment(postURL) {
+        text = $("#id-blog-comment").val()
+        if (text == "")
+          return;
+
+        $.ajax({
+            type: "POST",
+            url: postURL,
+            data: { 'blog-comment': text },
+            success: function(msg){
+                $("#list-of-blog-comments").append(msg);
+                $("#id-blog-comment").val("")
+            }
+        });
+    }
+    
+    function setBlogCommentIsSpam(postURL, liID, isSpam) {
+        $.post(postURL, 
+              { is_spam: isSpam },
+              function(data){
+                if (isSpam == 'True')
+                    $("#" + liID).addClass('blog-comment-is-spam');
+                else
+                    $("#" + liID).removeClass('blog-comment-is-spam');
+            });
+    }
+    
+{% endblock %}

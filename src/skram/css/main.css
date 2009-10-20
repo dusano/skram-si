@@ -1,0 +1,584 @@
+@charset "UTF-8";
+
+/* inspiration from http://woork.blogspot.com/2008/03/how-to-design-sexy-header-for-your-site.html */
+
+.hidden {
+	visibility: hidden;
+}
+
+.displayNone {
+	display: none;
+}
+
+
+body {
+	background: #c1c1c1;
+	color: #444;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+/* -------------------------------- */
+/* Wrapper							*/
+
+#wrapper {
+	margin:0 auto;
+	width:926px;
+	padding: 10px 10px 36px 0;
+}
+
+/* -------------------------------- */
+/* Header							*/ 
+
+#header {
+	height: 50px;
+	background: #282828;
+}
+
+#header-c {
+	margin: 0 auto; 
+	width: 940px;
+	height: 50px;
+	background: url(/images/top-bg.jpg) no-repeat;
+}
+
+#header p {
+	border: 0; 
+	padding: 0; 
+	margin: 0; 
+	display: inline;
+	height:50px; 
+	line-height:50px;
+}
+
+#header p.left {
+	width: 110px;
+	float: left;
+}
+
+#header p.right {
+	width: 500px; 
+	float: right; 
+	text-align: right;
+	padding-right: 20px;
+	color: #555; 
+	text-decoration: none; 
+	font-size: 18px;
+	font-weight: bold;
+	margin-left: 14px;
+}
+	
+#header p.right a:link, #header p.right a:visited {
+	color: #555;
+	border-bottom: solid 1px #333;
+}
+
+#header p.right a:hover {
+	color:#999;
+}
+
+/* -------------------------------- */
+/* Page							*/
+
+#mainbar {
+	width: 637px;
+	float: left;
+	margin: 0px 10px 0px 0px;
+}
+
+#page {
+	background: #FFFFFF none repeat scroll 0 0;
+	border: 1px solid #DADDDD;
+	color: #333333;
+	float: left;
+	font-size: 13px;
+	height: auto !important;
+	line-height: 18px;
+	min-height: 320px;
+	padding: 10px;
+	width: 100%;
+	-moz-border-radius-topleft: 6px;
+	-moz-border-radius-topright: 6px;
+	-webkit-border-top-left-radius: 6px;
+	-webkit-border-top-right-radius: 6px;
+}
+
+.page-section {
+	background:#FFFFFF none repeat scroll 0 0;
+	width:100%;
+	min-height:100px;
+	float:left;
+	color:#555;
+	font-size:12px;
+	margin: 10px 0 20px 0;
+	line-height:16px;
+}
+
+.page-section h4 {
+	font-weight:bold;
+	font-size:13px;
+	color:#FFF;
+	padding:6px;
+	background:#555;
+	margin: 0;
+	height: 1.2em;
+}
+
+.page-section h4 .page-section-title-left {
+	float: left;
+}
+
+.page-section h4 .page-section-title-right {
+	float: right;
+	text-align: right;
+}
+
+.page-section h4 a:link,
+.page-section h4 a:visited {
+	color: #FFF;
+}
+
+.page-section h4 a:hover {
+	color:#AAA;
+}
+
+.page-section p {
+	margin: 6px 6px 6px 6px;
+}
+
+.nov-prispevek-btn {
+	float: right;
+	padding: 5px 15px 5px 15px;
+	background: #AAA none repeat scroll 0 0;
+	color: #666;
+	font-size: 14px;
+}
+
+.nov-prispevek-btn a:link,
+.nov-prispevek-btn a:visited {
+	color: #222;
+}
+
+.nov-prispevek-btn a:hover {
+	color:#666;
+}
+
+/* -------------------------------- */
+/* Sidebar							*/ 
+
+#sidebar {
+	float:left;
+	margin-left:20px;
+	width:239px;
+}
+
+.sidebar-section {
+	background:#FFFFFF none repeat scroll 0 0;
+	width:100%;
+	min-height:100px;
+	float:left;
+	color:#555;
+	font-size:12px;
+	margin: 10px 0 20px 0;
+	line-height:16px;
+}
+
+.sidebar-section h4 {
+	font-weight:bold;
+	font-size:13px;
+	color:#FFF;
+	padding:6px;
+	background:#555;
+	margin: 0;
+}
+
+
+.sidebar-section a:link,
+.sidebar-section a:visited {
+	color: #FFF;
+}
+
+.sidebar-section a:hover {
+	color:#AAA;
+}
+
+.sidebar-section p {
+	margin: 6px 6px 6px 6px;
+}
+
+/* -------------------------------- */
+/* Footer							*/ 
+
+#footer{
+	width: 100%;
+	background:#333;
+	color: Green;
+	font-size:12px;
+	clear:both;
+	padding:10px;
+}
+#footer p{
+	clear:both;
+	margin-left: 10px;
+	margin-top:20px;
+	padding:26px 0px 00px 0px;
+}
+
+#footer a:link, 
+#footer a:visited {
+	color: Green;
+}
+
+#footer a:hover {
+	color: LightGreen;
+}	
+	
+/* -------------------------------- */
+/* Navigation Bar  					*/
+#nav-bar {
+	height: 40px;
+	line-height: 40px;
+	margin: 0 auto;
+	background: #EFEFEF;
+	border-bottom: solid 1px #DEDEDE;
+}
+
+#nav-bar-c {
+	width: 940px;
+	margin: 0 auto;
+}
+
+#nav-bar-c a:link, 
+#nav-bar-c a:visited {
+	display: block;
+	float: left;
+	border-bottom: solid 1px #CCC;
+	color: #232323;
+	font-size: 14px;
+	height: 20px;
+	line-height: 20px;
+	margin: 10px 22px 0 0;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#nav-bar-c a:hover {
+	text-decoration: none;
+	color: #555;
+	border: none;
+}
+
+/* -------------------------------- */
+/* Contents		  					*/
+
+.title {
+	width: 70%;
+	float: right;
+}
+
+.contents {
+	margin-left: 14px;
+}
+
+.sidebar {
+	width: 25%;
+	float: right;
+}
+
+
+/* -------------------------------- */
+/* Tables					      	*/
+
+.tables table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.tables #user-openid {
+	width: 40%;
+}
+
+.tables #user-name {
+	width: 40%;
+}
+
+.tables #user-type {
+	width: 20%;
+}
+
+.tables th {
+	background: #AAA;
+	text-align:left;
+	padding: 3px;
+}
+
+.tables td {
+	padding: 3px;
+}
+
+/* -------------------------------- */
+/* Skram.si twitter client      	*/
+
+.tweet a {
+	width: 90%;
+	height: 100%;
+	display: block;
+	padding: 5px 5% 25px 5%;
+	text-decoration: none;
+}
+
+.tweet a:link, 
+.tweet a:visited {
+	color: #222;
+	background: #888;
+}
+
+.tweet a:hover {
+	color: #AAA;
+	background: #AAA;
+}
+
+.tweet-text {
+	color: #EEE;
+	font-size: 14px;
+}
+
+.tweet-date {
+	color: #CCC;
+	float: left;
+	width: 100%;
+	text-align: right;
+}
+
+#twitter-status-chars {
+	float: left;
+	font-size:2em;
+	padding: 15px 0px 0 0px;
+}
+
+fieldset {
+	border-color: transparent;
+	border-width: 0;
+}
+
+input.submit, input[type=submit] {
+	background-color: #e6e6e6;
+	border: 1px solid #ccc;
+	color: #000;
+	cursor: pointer;
+	font-size: 14px;
+	moz-border-radius: 5px;
+	padding: 4px 8px;
+	vertical-align: top;
+	webkit-border-radius: 5px;
+}
+
+#twitter-status_update_box {
+	background: #888;
+	width: 100%;
+	display: block;
+	border-bottom: dotted 2px #CCC;
+}
+
+.twitter-status-update-form textarea
+{
+	font: 1.15em/1.1 'Lucida Grande',sans-serif;
+	height: 2.5em;
+	overflow: auto;
+	resize: none;
+	width: 100%;
+}
+
+.twitter-status-btn {
+	float: right;
+	padding: 5px 0px 0 5px;
+}
+
+.twitter-status-btn input.round-btn {
+	background-image: url('/images/round-btn.png');
+	border: 0;
+	color: #666;
+	font-size: 14px;
+	height: 32px;
+	margin-left: 3px;
+	width: 115px;
+}
+
+.twitter-status-btn input.round-btn:hover {
+	background-image: url('/images/round-btn-hover.png');
+	color: #444;
+}
+
+.twitter-status-btn input.disabled,
+.twitter-status-btn input.disabled:hover {
+	background-image: url('/images/round-btn.png');
+	color: #aaa;
+	cursor: default;
+}
+
+/* -------------------------------- */
+/* Blog                         	*/
+
+.blog-text {
+	margin: 10px 10px 10px 10px;
+}
+
+.blog-title-field {
+	display: table;
+	width: 100%;
+	padding: 10px 0px 10px 0px;
+}
+
+.blog-title-field-label {
+	display: table-cell;
+	width: 5%;
+}
+
+.blog-title-field-input {
+	display: table-cell;
+	width: 95%;
+	padding: 0px 10px 0px 10px;
+}
+
+.blog-title-field-input input {
+	width: 100%;
+}
+
+.blog-title-field-input ul {
+	background: #FF6347;
+	margin: 5px 0px 0px 0px;
+	padding: 5px 10px 10px 20px;
+}
+
+.blog-text-field {
+	width: 100%;
+}
+
+.blog-text-field-area {
+	margin: 0px 5px 0px 5px;
+}
+
+.blog-text-field textarea {
+	width: 100%;
+	height: 30em;
+}
+
+.blog-attribute-fields {
+	display: table;
+}
+
+.blog-attribute-field {
+	display: table-cell;
+	padding: 10px 10px 10px 10px;
+}
+
+ul#blog-commands {
+	list-style-type: none;
+	margin: 0;
+	padding: 0.5em 0;
+	height: 30px;
+}
+
+ul#blog-commands li {
+	display: block;
+	width: 5em;
+	padding: 0.2em 0;
+	text-align: center;
+}
+
+ul#blog-commands li#blog-command-submit {
+	width: 7em;
+}
+
+ul#blog-commands li#blog-command-ali {
+	width: 1em;
+	padding-top: 0.7em;
+}
+
+ul#blog-commands li#blog-command-cancel {
+	padding-top: 0.7em;
+}
+
+ul#blog-commands li#blog-command-zemanta {
+	width: 10em;
+	padding-top: 0.7em;
+}
+
+ul#blog-commands li#blog-command-remove-zemanta {
+	width: 10em;
+	padding-top: 0.7em;
+}
+
+ul#blog-commands .left { 
+	float: left; 
+}
+
+ul#blog-commands .right {
+	float: right; 
+}
+
+#blog-comment-form {
+	margin: 10px 10px 10px 10px;
+}
+
+#blog-comment-form textarea {
+	width: 100%;
+	height: 7em;
+	margin-bottom: 10px;
+}
+
+#blog-comment-form input {
+	float: right;
+}
+
+h4#comments-heading {
+	background:#888;
+}
+
+.blog-comment {
+	clear: both;
+}
+
+.blog-comment #blog-comment-id {
+	float: left;
+	padding: 5px 5px 10px 20px;
+}
+
+.blog-comment #blog-comment-text-column {
+	padding: 5px 5px 5px 5px;
+}
+
+.blog-comment-edit {
+	float: right;
+	padding: 5px 10px 5px 10px;
+}
+
+.blog-comment #blog-comment-text {
+	padding: 5px 10px 5px 10px;
+	margin: 5px 10px 5px 0px;
+}
+
+.blog-comment #blog-comment-author {
+	border-bottom: solid 1px #333;
+	padding: 5px 10px 5px 10px;
+	margin: 5px 10px 5px 0px;
+}
+
+.blog-comment-is-spam {
+	color: #CCC;
+}
+
+.blog-comment-is-spam #blog-comment-is-spam-button {
+	display: none;
+}
+
+#blog-comment-not-a-spam-button {
+	display: none;
+}
+
+.blog-comment-is-spam #blog-comment-not-a-spam-button {
+	display: block;
+}

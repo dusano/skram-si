@@ -1,0 +1,51 @@
+{% extends 'main_template.html' %}
+
+{% block title %} Skram.si - uporabniki {% endblock %}
+
+{% block container %}
+
+  <div class="page-section">
+    <h4>Uporabniki</h4>
+    
+    {% if persons %}
+      <div class="tables">
+        <table>
+          <col id="user-openid" />
+          <col id="user-name" />
+          <col id="user-type" />
+          <thead>
+            <th>OpenID</th>
+            <th>Ime</th>
+            <th>Tip</th>
+          </thead>
+        {% for person in persons %}
+          <tr>
+            <td>{{ person.openid }}</td>
+            <td>{{ person.person_name }}</td>
+            <td>
+              {% ifequal person.openid lip.openid %}
+                {{ person.type_of_user }}    
+              {% else %}
+                <select onchange="setUserType('{{ person.openid }}', this.options[this.selectedIndex].value)">
+                  {% for usertype in usertypes %}
+                    <option value="{{ usertype.type }}"{% ifequal usertype.type person.usertype %} selected="selected"{% endifequal %}>{{ usertype.name }}</option>
+                  {% endfor %}
+                </select>
+              {% endifequal %}
+            </td>
+          </tr>
+        {% endfor %}
+        </table>
+      </div>
+    {% endif %}
+  </div>
+  
+{% endblock %}
+
+{% block final_javascript %}
+
+  function setUserType(openID, userType) {
+    $.post("/uporabniki/" + encodeURIComponent(openID) + "/usertype/" + userType);
+  }
+  
+{% endblock %}

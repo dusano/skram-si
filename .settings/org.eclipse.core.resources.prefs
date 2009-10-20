@@ -1,0 +1,8 @@
+#Fri Oct 09 17:12:22 CEST 2009
+eclipse.preferences.version=1
+encoding//src/lib/openidgae/models.py=utf-8
+encoding//src/lib/openidgae/views.py=utf-8
+encoding//src/skram/templates/main_template.html=UTF-8
+encoding//src/skram/templates/scrummaster.html=UTF-8
+encoding//src/skram/templates/team.html=UTF-8
+encoding/<project>=UTF-8

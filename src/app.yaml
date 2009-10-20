@@ -1,0 +1,17 @@
+application: skram-si
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /css
+  static_dir: skram/css
+  
+- url: /images
+  static_dir: skram/images
+ 
+- url: /js
+  static_dir: skram/js
+
+- url: /.*
+  script: main.py

@@ -1,0 +1,83 @@
+{% extends 'main_template.html' %}
+
+{% block sidebar %}
+  <div class="sidebar-section">
+    <h4>Skram.si</h4>
+    
+    <p>
+      Skram.si je spletna stran namenjena vsem, ki v Sloveniji prakticirajo Skram.
+    </p>
+
+  </div>
+
+  {% if tweets %}
+    <div class="sidebar-section">
+      <h4><a href="http://twitter.com/skramsi" target="_blank">twitter.com/skramsi</a></h4>
+      
+      {% if user_is_scrummaster %}
+        <div id="twitter-status_update_box">
+          <form action="{% url skram.views.twitter_status_update %}" class="twitter-status-update-form" id="status_update_form" method="post">
+            <fieldset class="common-form standard-form">
+              <textarea cols="40" rows="2" id="status" name="twitter_status" accesskey="u" autocomplete="off" tabindex="1" onKeyUp="return twitterStatusChanged(this);"></textarea>
+              <div id="twitter-status-chars">
+                0
+              </div>
+              <div class="twitter-status-btn">
+                <input type="submit" name="update-submit" value="objavi" id="update-submit" disabled="disabled" class="twitter-status-btn round-btn disabled" tabindex="2" />
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      {% endif %}
+    
+      {% for tweet in tweets %}
+        <div class="tweet">
+          <a href="http://twitter.com/skramsi/status/{{ tweet.id }}" target="_blank">
+            <span class="tweet-text">{{ tweet.text }}</span> <br/>
+            <span class="tweet-date">{{ tweet.date_str }}</span>
+          </a>
+        </div>
+      {% endfor %}
+    
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block final_javascript %}
+
+    $.twitter_status = {
+        submit_enabled : false
+    }
+     
+    $(document).ready(function() {
+        $(function(){
+            $('#twitter-status').keyup(function(){
+                return twitterStatusChanged('#twitter-status');
+            });
+        });
+    });
+    
+    function twitterStatusChanged(textarea_id)
+    {
+        TWITTER_MAX_LENGTH = 140;
+        var text = $(textarea_id).val();
+        
+        if (text.length > TWITTER_MAX_LENGTH) {
+            $(textarea_id).val(text.substr(0, TWITTER_MAX_LENGTH));
+            return false;
+        }
+        
+        if ((text.length != 0) && !($.twitter_status.submit_enabled)) {
+            $('#update-submit').removeAttr("disabled").removeClass("disabled");
+            $.twitter_status.submit_enabled = true;
+        } else if ((text.length == 0) && $.twitter_status.submit_enabled) {
+            $('#update-submit').attr("disabled", "disabled").addClass("disabled");
+            $.twitter_status.submit_enabled = false;
+        }
+        
+        $('#twitter-status-chars').html(text.length);
+      
+        return true;
+    }
+
+{% endblock %}
